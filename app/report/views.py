@@ -1,9 +1,14 @@
-from flask import render_template, g, request, flash
+import logging
+from flask import render_template, g, request, flash, Response
 from flask_login import login_required
 from ..report import report_b
 from .models import Report
 from .forms import ReportForm
+from app.jobs import execute_query
 
+from app.extensions import rq
+
+LOG = logging.getLogger(__name__)
 
 raw_query = """
 With #esStg as (
@@ -147,12 +152,38 @@ def run(id):
     report = Report.query.filter_by(id=id).first_or_404()
     form = ReportForm(obj=report)
     if form.validate_on_submit():
-        print(create_query(form.data))
-        flash(
-            'Report {report} Created'.format(report=report.name),
-            'success'
-        )
+        query = create_query(form.data)
+        print(query)
+        job = execute_query.queue(query)
+        return render_template('wait.html', id=job.get_id())
     return render_template('report.html', form=form, report=report)
+
+
+@report_b.route('/status', methods=['GET'])
+def check_status():
+    job_id = request.args.get('id')
+    queue = rq.get_queue()
+    job = queue.fetch_job(job_id)
+    result = False
+    if job:
+        result = job.is_finished
+    return Response(str(result))
+
+
+@report_b.route('/view', methods=['GET'])
+def view_report():
+    job_id = request.args.get('id')
+    queue = rq.get_queue()
+    job = queue.fetch_job(job_id)
+    result = []
+    for row in job.result:
+        str_row = ()
+        for item in row:
+            str_row += (str(item),)
+        result.append(str_row)
+    print(result)
+    LOG.info(result)
+    return render_template('result.html', result=result)
 
 
 def create_query(params):
@@ -161,4 +192,5 @@ def create_query(params):
     parameters['to_date'] = str(params['to_date'])
     parameters['contracts'] = str(tuple(params['contracts'] + ['test']))
     return raw_query.format(**parameters)
+
 

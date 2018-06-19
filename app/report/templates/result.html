@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% from 'components/table.html' import table_header %}
+{% from 'components/pagination.html' import pagination %}
+{% from 'components/search.html' import search %}
+
+{% block title %}
+    Reports
+{% endblock %}
+
+{% block header %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.list') }}">Admin</a></li>
+        <li class="active">Reports</li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <div id="pjax-container">
+
+<div class="panel panel-default">
+   
+    <div class="table-responsive">
+        <table id="result" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Cobrand</th>
+                <th>referrertype</th>
+                <th>referrerdomain</th>
+                <th>referrerkeyword</th>
+                <th>ipaddress</th>
+                <th>browser</th>
+                <th>country</th>
+                <th>searches</th>
+                <th>paidclicks</th>
+                <th>keyword</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for r in result %}
+                    <tr>
+                        <td>{{ r[0] }}</td>
+                        <td>{{ r[1] }}</td>
+                        <td>{{ r[2] }}</td>
+                        <td>{{ r[3] }}</td>
+                        <td>{{ r[4] }}</td>
+                        <td>{{ r[5] }}</td>
+                        <td>{{ r[6] }}</td>
+                        <td>{{ r[7] }}</td>
+                        <td>{{ r[8] }}</td>
+                        <td>{{ r[9] }}</td>
+                        <td>{{ r[10] }}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#result').DataTable();
+} );
+</script>
+{% endblock %}

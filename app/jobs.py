@@ -1,22 +1,14 @@
-from flask import render_template
-from flask_mail import Message
+from app.extensions import rq
 
-from app.extensions import mail, rq
-from app.user.models import User
+from sqlalchemy import create_engine
+
+en = create_engine('redshift+psycopg2://rs_adhoc_usr:R5adL0cK@insp-dw-prod01.cogvbioiyusk.us-west-2.redshift.amazonaws.com:5439/bdm')
 
 
 @rq.job
-def send_registration_email(uid, token):
+def execute_query(query):
     """Sends a registratiion email to the given uid."""
-    user = User.query.filter_by(id=uid).first()
-    msg = Message(
-        'User Registration',
-        sender='admin@flask-bones.com',
-        recipients=[user.email]
-    )
-    msg.body = render_template(
-        'mail/registration.mail',
-        user=user,
-        token=token
-    )
-    mail.send(msg)
+    result = en.execute(query)
+    r = [r for r in result]
+    print(r)
+    return r

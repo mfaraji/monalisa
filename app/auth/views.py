@@ -5,7 +5,6 @@ from flask_babel import gettext
 from flask_login import login_user, login_required, logout_user
 from itsdangerous import URLSafeSerializer, BadSignature
 from app.extensions import lm
-from app.jobs import send_registration_email
 from app.user.models import User
 from app.user.forms import RegisterUserForm
 from .forms import LoginForm

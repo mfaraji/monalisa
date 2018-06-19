@@ -22,8 +22,8 @@
             </div>
             <div class="panel-body">
                 {{ form.csrf_token }}
-                {{ render_field(form.from_date, class_='datepicker') }}
-                {{ render_field(form.to_date, class_='datepicker') }}
+                {{ render_field(form.from_date, class_='datepicker', autocomplete="off") }}
+                {{ render_field(form.to_date, class_='datepicker', autocomplete="off") }}
                 {{ render_field(form.contracts, class_='selectpicker', data_live_search='true') }}
 <button class="btn-save btn btn-primary">Execute</button>
             </div>

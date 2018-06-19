@@ -6,10 +6,12 @@
     "author": "Corey Burmeister <burmeister.corey@gmail.com>",
     "license": "MIT",
     "dependencies": {
+        "blockui": "^1.0.0",
         "bootbox": "4.4.0",
         "bootstrap": "3.3.7",
         "bootstrap-datepicker": "^1.8.0",
         "bootstrap-select": "^1.13.1",
+        "datatables.net-bs": "^1.10.18",
         "font-awesome": "4.7.0",
         "jquery": "3.2.1",
         "jquery-pjax": "2.0.1"

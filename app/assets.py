@@ -17,6 +17,9 @@ js = Bundle(
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
     'node_modules/bootstrap-select/dist/js/bootstrap-select.js',
+    'node_modules/blockui/jquery.blockUI.min.js',
+    'node_modules/datatables.net/js/jquery.dataTables.min.js',
+    'node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js',
     'js/application.js',
     filters=(ConcatFilter, 'jsmin'),
     output='gen/packed.js'
@@ -27,6 +30,7 @@ css = Bundle(
     'node_modules/font-awesome/css/font-awesome.css',
     'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
     'node_modules/bootstrap-select/dist/css/bootstrap-select.css',
+    'node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css',
     'css/style.css',
     filters=('cssmin','cssrewrite'),
     output='gen/packed.css'

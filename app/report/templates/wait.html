@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Reports
+{% endblock %}
+
+{% block header %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.list') }}">Admin</a></li>
+        <li class="active">Reports</li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <div id="pjax-container">
+        <div id="throbber" style="display:none;">
+            <img src="/static/img/3.gif" />
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+<script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $.blockUI({ message: $('#throbber') });
+        var $id = "{{ id }}";
+        console.log($id);
+        function check_status() {
+            console.log('check status');
+            $.ajax({
+                type: "GET",
+                url: "/report/status?id=" + $id,
+                success: function(response){
+                    console.log(response);
+                    if(response == 'True') {
+                        $.unblockUI();
+                        window.location.href = '/report/view?id='+$id;
+                    } else {
+                        setTimeout(function(){check_status();}, 10000);
+                    }
+                }
+            });
+        }
+        check_status();
+    });
+
+</script>
+{% endblock %}

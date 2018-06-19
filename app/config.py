@@ -17,6 +17,10 @@ class base_config(object):
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.dirname(APP_DIR)
     SECRET_KEY = os.environ.get('MONALISA_SECRET', 'secret-key')
+    REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
+    REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
+    RQ_REDIS_URL = 'redis://{}:{}'.format(REDIS_HOST, REDIS_PORT)
+    CACHE_TYPE = 'simple'
 
 
 class dev_config(base_config):
@@ -30,9 +34,6 @@ class dev_config(base_config):
 
 
 class prod_config(base_config):
-    REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')
-    REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
-    RQ_REDIS_URL = 'redis://{}:{}'.format(REDIS_HOST, REDIS_PORT)
 
     CACHE_HOST = os.environ.get('MEMCACHED_HOST', 'memcached')
     CACHE_PORT = os.environ.get('MEMCACHED_PORT', 11211)

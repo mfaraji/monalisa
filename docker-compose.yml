@@ -12,12 +12,10 @@ services:
       - .:/code
   worker:
     build: .
-    command: python -m flask rq worker
+    command: python -m flask rq worker --worker-ttl 420
     environment:
       - FLASK_APP=serve.py
     volumes:
       - .:/code
-  memcached:
-    image: "memcached:alpine"
   redis:
     image: "redis:alpine"
