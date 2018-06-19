@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Reports
+{% endblock %}
+
+{% block header %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.list') }}">Admin</a></li>
+        <li class="active">Reports</li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <div id="pjax-container">
+        {% include 'reports.html' %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,4 @@
+Select lower(Contract) as Contract
+from bdm.Affiliate
+Where ContractStatus = 'Active'
+group by Contract order by lower(Contract)

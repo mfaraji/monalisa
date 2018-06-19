@@ -1,0 +1,37 @@
+{% from 'components/table.html' import table_header %}
+{% from 'components/pagination.html' import pagination %}
+{% from 'components/search.html' import search %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ search('Search for a Report') }}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            {{ table_header(datatable, actions=True) }}
+            <tbody>
+                {% for r in datatable.query.items %}
+                    <tr>
+                        <td>{{ r.name }}</td>
+                        <td>{{ timeago(r.created_ts) }}</td>
+                        <td>{{ timeago(r.last_run) }}</td>
+                        <td>
+                            {% set dialogue = 'Are you sure you want to delete %s?' % r.name %}
+                            <a data-confirm data-dialogue="{{ dialogue }}" class="btn btn-default btn-xs" href="#">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a data-toggle="tooltip" class="btn btn-default btn-xs" href="{{ url_for('.run', id=r.id) }}" title="Run the query">
+                                <i class="fa fa-camera-retro"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="{{ datatable.colspan }}">No results found for: {{ request.values.get('query') }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        {{ pagination(datatable.query, datatable.limits) }}
+    </div>
+</div>

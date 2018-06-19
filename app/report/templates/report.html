@@ -1,0 +1,41 @@
+{% from 'components/field.html' import render_field %}
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Choose Parameters - {{ report.name }}
+{% endblock %}
+
+{% block header %}
+    <ol class="breadcrumb">
+        <li><a href="{{ url_for('.list') }}">Admin</a></li>
+        <li><a href="{{ url_for('.list') }}">Reports</a></li>
+        <li class="active">Choose Parameters</li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <form method="POST" action="{{ request.url }}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Choose Parameters
+            </div>
+            <div class="panel-body">
+                {{ form.csrf_token }}
+                {{ render_field(form.from_date, class_='datepicker') }}
+                {{ render_field(form.to_date, class_='datepicker') }}
+                {{ render_field(form.contracts, class_='selectpicker', data_live_search='true') }}
+<button class="btn-save btn btn-primary">Execute</button>
+            </div>
+            
+        </div>
+    </form>
+{% endblock %}
+
+{% block footer %}
+<script>
+    $('.datepicker').datepicker({
+    format: 'mm/dd/yyyy'
+});
+</script>
+{% endblock %}

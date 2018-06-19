@@ -1,0 +1,17 @@
+{
+    "name": "monalisa",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/mfaraji/monalisa.git",
+    "author": "Corey Burmeister <burmeister.corey@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "bootbox": "4.4.0",
+        "bootstrap": "3.3.7",
+        "bootstrap-datepicker": "^1.8.0",
+        "bootstrap-select": "^1.13.1",
+        "font-awesome": "4.7.0",
+        "jquery": "3.2.1",
+        "jquery-pjax": "2.0.1"
+    }
+}
