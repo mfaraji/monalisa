@@ -1,9 +1,6 @@
-![flasks](https://raw.githubusercontent.com/cburmeister/flask-bones/master/image.jpg)
-
-flask-bones
+Monalisa
 ===========
-
-An example of a large scale Flask application using blueprints and extensions.
+Monalisa is web portal to query Amazon Redshift
 
 [![Build Status](https://travis-ci.org/cburmeister/flask-bones.svg?branch=master)](https://travis-ci.org/cburmeister/flask-bones)
 
